@@ -29,7 +29,7 @@ async function seed() {
  await client.connect();
  console.log('Conectado a MongoDB\n');
 
- const db = client.db();
+ const db = client.db("erp-app");
  const empresasCollection = db.collection<Empresa>('empresas');
  const trabajadoresCollection = db.collection<Trabajador>('trabajadores');
  const userCollection = db.collection('user'); // Tabla de Better Auth

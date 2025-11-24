@@ -18,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         try {
           const client = await clientPromise;
-          const db = client.db("erp-app");
+          const db = client.db();
           
           const trabajador = await db.collection("trabajadores").findOne({
             email: credentials.email as string
