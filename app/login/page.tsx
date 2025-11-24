@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useNotifications } from "@/hooks/useNotifications";
@@ -22,7 +21,6 @@ const inspirationalQuotes = [
 ];
 
 export default function LoginPage() {
-  const router = useRouter();
   const { showError } = useNotifications();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -99,14 +97,14 @@ export default function LoginPage() {
 
       if (result?.error) {
         AuthNotifications.invalidCredentials();
-      } else {
+      } else if (result?.ok) {
         if (rememberMe) {
           localStorage.setItem("rememberedEmail", email);
         } else {
           localStorage.removeItem("rememberedEmail");
         }
-        router.push("/dashboard");
-        router.refresh();
+        // Usar window.location para forzar una recarga completa y asegurar que la sesión se cargue
+        window.location.href = "/dashboard";
       }
     } catch (err) {
       console.error("Error de autenticación:", err);
