@@ -72,6 +72,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.empresaId = token.empresaId as string;
       }
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      // Siempre redirigir al dashboard después de login exitoso
+      if (url.startsWith(baseUrl)) {
+        return url;
+      }
+      return `${baseUrl}/dashboard`;
     }
   },
   
@@ -82,6 +89,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: "jwt",
     maxAge: 8 * 60 * 60,
+  },
+  
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: false, // false para desarrollo local
+      },
+    },
   },
   
   secret: process.env.AUTH_SECRET,

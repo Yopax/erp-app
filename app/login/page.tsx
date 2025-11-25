@@ -95,16 +95,26 @@ export default function LoginPage() {
         redirect: false,
       });
 
+      console.log("Resultado del signIn:", result);
+
       if (result?.error) {
+        console.error("Error en signIn:", result.error);
         AuthNotifications.invalidCredentials();
+        setIsLoading(false);
       } else if (result?.ok) {
+        console.log("Login exitoso!");
+        
+        // Guardar email si está marcado "recordarme"
         if (rememberMe) {
           localStorage.setItem("rememberedEmail", email);
         } else {
           localStorage.removeItem("rememberedEmail");
         }
-        // Usar window.location para forzar una recarga completa y asegurar que la sesión se cargue
-        window.location.href = "/dashboard";
+        
+        // Esperar un momento para que la cookie se establezca antes de redirigir
+        setTimeout(() => {
+          window.location.href = "/dashboard";
+        }, 500);
       }
     } catch (err) {
       console.error("Error de autenticación:", err);

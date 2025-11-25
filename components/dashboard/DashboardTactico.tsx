@@ -12,16 +12,6 @@ export default function DashboardTactico({ role, userName }: DashboardTacticoPro
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="bg-linear-to-r from-indigo-600 to-indigo-800 rounded-lg p-6 text-white">
-        <h1 className="text-3xl font-bold mb-2">
-          Bienvenido, {userName}
-        </h1>
-        <p className="text-indigo-100">
-          {isCoordinador ? "Coordinador BIM" : "Especialista BIM Vial"} - Nivel Táctico
-        </p>
-      </div>
-
       {/* KPIs Tácticos */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-indigo-500">
